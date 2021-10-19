@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public abstract class Formatter<T> {
-    private final List<T> items;
+    protected final List<T> items;
 
     public Formatter(List<T> items){
         this.items = items;

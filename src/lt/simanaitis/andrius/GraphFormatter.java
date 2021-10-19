@@ -4,12 +4,12 @@ import java.util.Comparator;
 import java.util.List;
 
 public class GraphFormatter extends Formatter<Integer> {
-    public GraphFormatter(List<Integer> frequencies){
-        super(frequencies);
+    public GraphFormatter(){
+        super();
     }
 
     @Override
-    protected int getLongestValue() {
+    protected int getLongestValue(List<Integer> items) {
         return items.stream()
                 .max(Comparator.comparingInt(a -> a))
                 .orElseThrow();

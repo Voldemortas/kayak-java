@@ -6,27 +6,23 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public abstract class Formatter<T> {
-    protected final List<T> items;
+    public Formatter(){}
 
-    public Formatter(List<T> items){
-        this.items = items;
-    }
-
-    public String format(){
+    public String format(List<T> items){
         if(items.isEmpty())
             return "";
 
-        return getRange()
-                .map(this::formatRow)
+        return getRange(items)
+                .map(row -> this.formatRow(row, items))
                 .collect(Collectors.joining("\r\n"));
     }
 
-    abstract protected int getLongestValue();
+    abstract protected int getLongestValue(List<T> items);
 
     protected abstract String formatCell(int level, T item);
 
-    private Stream<Integer> getRange(){
-        int maxKey = getLongestValue();
+    private Stream<Integer> getRange(List<T> items){
+        int maxKey = getLongestValue(items);
 
         return IntStream
                 .range(0, maxKey)
@@ -34,7 +30,7 @@ public abstract class Formatter<T> {
                 .boxed();
     }
 
-    private String formatRow(int row){
+    private String formatRow(int row, List<T> items){
         return items.stream()
                 .map(item -> formatCell(row, item))
                 .collect(Collectors.joining(""));

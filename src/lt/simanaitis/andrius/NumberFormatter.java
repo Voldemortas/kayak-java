@@ -1,11 +1,10 @@
 package lt.simanaitis.andrius;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class NumberFormatter extends Formatter<String> {
-    public NumberFormatter(List<Integer> numbers){
-        super(numbers.stream().map(String::valueOf).collect(Collectors.toList()));
+public class NumberFormatter extends Formatter<Integer> {
+    public NumberFormatter(){
+        super();
     }
 
     private static int compareString(String a, String b){
@@ -13,17 +12,19 @@ public class NumberFormatter extends Formatter<String> {
     }
 
     @Override
-    protected int getLongestValue() {
+    protected int getLongestValue(List<Integer> items) {
         return items.stream()
+                .map(String::valueOf)
                 .max(NumberFormatter::compareString)
                 .orElse("").length();
     }
 
     @Override
-    protected String formatCell(int level, String item) {
-        int index = item.length() - level;
+    protected String formatCell(int level, Integer item) {
+        String stringItem = String.valueOf(item);
+        int index = stringItem.length() - level;
 
         if(index < 0) return " ";
-        return String.valueOf(item.charAt(index));
+        return String.valueOf(stringItem.charAt(index));
     }
 }

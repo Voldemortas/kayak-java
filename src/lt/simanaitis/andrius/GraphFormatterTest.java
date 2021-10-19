@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 class GraphFormatterTest {
+    private final Formatter<Integer> formatter = new GraphFormatter();
+
     @Test
     void shouldReturnEmptyStringForEmptyList(){
         List<Integer> input = List.of();
@@ -37,7 +39,7 @@ class GraphFormatterTest {
     }
 
     private void formatAndAssert(List<Integer> input, String expectOutput){
-        String output = new GraphFormatter(input).format();
+        String output = formatter.format(input);
 
         assert(output).equals(expectOutput);
     }

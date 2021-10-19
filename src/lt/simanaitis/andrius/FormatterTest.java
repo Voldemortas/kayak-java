@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 class FormatterTest {
+    private final Formatter<String> formatter = new LevelItemFormatter();
+
     @Test
     void shouldFormatEmptyListToNothing(){
         List<String> input = List.of();
@@ -21,18 +23,18 @@ class FormatterTest {
     }
 
     private void formatAndAssert(List<String> input, String expectOutput){
-        String output = new LevelItemFormatter(input).format();
+        String output = formatter.format(input);
 
         assert(output).equals(expectOutput);
     }
 
     private static class LevelItemFormatter extends Formatter<String>{
-        public LevelItemFormatter(List<String> items){
-            super(items);
+        public LevelItemFormatter(){
+            super();
         }
 
         @Override
-        protected int getLongestValue() {
+        protected int getLongestValue(List<String> items) {
             return 2;
         }
 

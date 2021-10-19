@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 class NumberFormatterTest {
+    private final Formatter<Integer> formatter = new NumberFormatter();
+
     @Test
     void shouldFormatEmptyListToNothing(){
         List<Integer> input = List.of();
@@ -36,7 +38,7 @@ class NumberFormatterTest {
     }
 
     private void formatAndAssert(List<Integer> input, String expectOutput){
-        String output = new NumberFormatter(input).format();
+        String output = formatter.format(input);
 
         assert(output).equals(expectOutput);
     }

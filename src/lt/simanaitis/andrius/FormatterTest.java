@@ -6,15 +6,25 @@ import java.util.List;
 
 class FormatterTest {
     @Test
+    void shouldFormatEmptyListToNothing(){
+        List<String> input = List.of();
+
+        formatAndAssert(input, "");
+    }
+
+    @Test
     void shouldFormatLevelWithValue(){
         List<String> input = List.of("a", "b", "c");
         String expectedOutput = "2a2b2c\r\n1a1b1c";
 
-        String output = new LevelItemFormatter(input).format();
-
-        assert(output).equals(expectedOutput);
+        formatAndAssert(input, expectedOutput);
     }
 
+    private void formatAndAssert(List<String> input, String expectOutput){
+        String output = new LevelItemFormatter(input).format();
+
+        assert(output).equals(expectOutput);
+    }
 
     private static class LevelItemFormatter extends Formatter<String>{
         public LevelItemFormatter(List<String> items){

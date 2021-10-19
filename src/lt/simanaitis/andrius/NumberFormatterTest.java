@@ -6,6 +6,13 @@ import java.util.List;
 
 class NumberFormatterTest {
     @Test
+    void shouldFormatEmptyListToNothing(){
+        List<Integer> input = List.of();
+
+        formatAndAssert(input, "");
+    }
+
+    @Test
     void shouldFormatAllNonNegativeIntegersUpTo10(){
         List<Integer> input = List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
 

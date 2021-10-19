@@ -1,106 +1,42 @@
 package lt.simanaitis.andrius;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Nested;
 
-import java.util.Map;
-
-import static java.util.Map.entry;
+import java.util.List;
 
 class GraphFormatterTest {
     @Test
-    void shouldReturnEmptyStringForEmptyMap(){
-        Map<Integer, Integer> input = Map.of();
+    void shouldReturnEmptyStringForEmptyList(){
+        List<Integer> input = List.of();
         
         formatAndAssert(input, "");
     }
 
-    @Nested
-    class SingleKey{
-        @Test
-        void shouldFormat1(){
-            Map<Integer, Integer> input = Map.ofEntries(entry(5, 1));
-            String expectOutput = "*";
+    @Test
+    void shouldFormat1(){
+        List<Integer> input = List.of(1);
+        String expectOutput = "*";
 
-            formatAndAssert(input, expectOutput);
-        }
-
-        @Test
-        void shouldFormat2(){
-            Map<Integer, Integer> input = Map.ofEntries(entry(9, 2));
-            String expectOutput = "*\r\n*";
-
-            formatAndAssert(input, expectOutput);
-        }
+        formatAndAssert(input, expectOutput);
     }
 
-    @Nested
-    class TwoKeys{
-        @Test
-        void shouldFormat12(){
-            Map<Integer, Integer> input = Map.ofEntries(entry(4, 1), entry(5, 2));
-            String expectOutput = " *\r\n**";
+    @Test
+    void shouldFormat2(){
+        List<Integer> input = List.of(2);
+        String expectOutput = "*\r\n*";
 
-            formatAndAssert(input, expectOutput);
-        }
-
-        @Test
-        void shouldFormat21(){
-            Map<Integer, Integer> input = Map.ofEntries(entry(4, 2), entry(5, 1));
-            String expectOutput = "* \r\n**";
-
-            formatAndAssert(input, expectOutput);
-        }
-
-        @Test
-        void shouldFormat11(){
-            Map<Integer, Integer> input = Map.ofEntries(entry(4, 1), entry(5, 1));
-            String expectOutput = "**";
-
-            formatAndAssert(input, expectOutput);
-        }
-
-        @Test
-        void shouldFormat33(){
-            Map<Integer, Integer> input = Map.ofEntries(entry(4, 3), entry(5, 3));
-            String expectOutput = "**\r\n**\r\n**";
-
-            formatAndAssert(input, expectOutput);
-        }
+        formatAndAssert(input, expectOutput);
     }
 
-    @Nested
-    class WithHole{
-        @Test
-        void shouldFormat101(){
-            Map<Integer, Integer> input = Map.ofEntries(entry(4, 1), entry(5, 0), entry(6, 1));
-            String expectOutput = "* *";
+    @Test
+    void shouldFormat21012(){
+        List<Integer> input = List.of(2, 1, 0, 1, 2);
+        String expectOutput = "*   *\r\n** **";
 
-            formatAndAssert(input, expectOutput);
-        }
-
-        @Test
-        void shouldFormat202(){
-            Map<Integer, Integer> input = Map.ofEntries(entry(4, 2), entry(5, 0), entry(6, 2));
-            String expectOutput = "* *\r\n* *";
-
-            formatAndAssert(input, expectOutput);
-        }
-
-        @Test
-        void shouldFormat10001(){
-            Map<Integer, Integer> input = Map.ofEntries(entry(4, 1),
-                    entry(5, 0),
-                    entry(6, 0),
-                    entry(7, 0),
-                    entry(8, 1));
-            String expectOutput = "*   *";
-
-            formatAndAssert(input, expectOutput);
-        }
+        formatAndAssert(input, expectOutput);
     }
 
-    private void formatAndAssert(Map<Integer, Integer> input, String expectOutput){
+    private void formatAndAssert(List<Integer> input, String expectOutput){
         String output = new GraphFormatter(input).format();
 
         assert(output).equals(expectOutput);

@@ -1,17 +1,11 @@
 package lt.simanaitis.andrius;
 
 import java.util.Comparator;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.List;
 
 public class GraphFormatter extends Formatter<Integer> {
-    public GraphFormatter(Map<Integer, Integer> frequencyMap){
-        super(frequencyMap
-                .keySet()
-                .stream()
-                .sorted()
-                .map(frequencyMap::get)
-                .collect(Collectors.toList()));
+    public GraphFormatter(List<Integer> frequencies){
+        super(frequencies);
     }
 
     @Override

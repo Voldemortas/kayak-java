@@ -22,15 +22,15 @@ class NumberFormatterTest {
     @Test
     void shouldFormatNineAndTen(){
         List<Integer> input = List.of(9, 10);
-        String expectOutput = "91\r\n 0";
+        String expectOutput = " 1\r\n90";
 
         formatAndAssert(input, expectOutput);
     }
 
     @Test
-    void shouldFormatNegative5_0_Positive9(){
-        List<Integer> input = List.of(-5, 0, 9);
-        String expectOutput = "-09\r\n5  ";
+    void shouldFormatNegative15_0_Positive9(){
+        List<Integer> input = List.of(-15, 9, 10);
+        String expectOutput = "-  \r\n1 1\r\n590";
 
         formatAndAssert(input, expectOutput);
     }

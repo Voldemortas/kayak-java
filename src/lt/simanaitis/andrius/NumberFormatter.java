@@ -21,10 +21,9 @@ public class NumberFormatter extends Formatter<String> {
 
     @Override
     protected String formatCell(int level, String item) {
-        int longestValue = getLongestValue();
-        int currentIndex = longestValue - level;
+        int index = item.length() - level;
 
-        if(currentIndex >= item.length()) return " ";
-        return String.valueOf(item.charAt(currentIndex));
+        if(index < 0) return " ";
+        return String.valueOf(item.charAt(index));
     }
 }

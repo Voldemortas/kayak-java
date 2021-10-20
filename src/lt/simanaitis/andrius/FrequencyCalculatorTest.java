@@ -8,11 +8,13 @@ import java.util.Map;
 import static java.util.Map.entry;
 
 class FrequencyCalculatorTest {
+    private final FrequencyCalculator frequencyCalculator = new FrequencyCalculator();
+
     @Test
     void shouldReturnEmptyMapForEmptyInput(){
         List<Integer> input = List.of();
 
-        Map<Integer, Integer> outputMap = new FrequencyCalculator(input).getFrequencyMap();
+        Map<Integer, Integer> outputMap = frequencyCalculator.getFrequencyMap(input);
 
         assert(outputMap).isEmpty();
     }
@@ -20,23 +22,25 @@ class FrequencyCalculatorTest {
     @Test
     void shouldCorrectlyMapUnsortedList(){
         List<Integer> input = List.of(4, 3, 4, 5);
-        Map<Integer, Integer> expectedMap = Map.ofEntries(entry(3, 1), entry(4, 2), entry(5, 1));
+        Map<Integer, Integer> expectedOutput = Map.ofEntries(entry(3, 1), entry(4, 2), entry(5, 1));
 
-        Map<Integer, Integer> outputMap = new FrequencyCalculator(input).getFrequencyMap();
-
-        assert(outputMap).equals(expectedMap);
+        getFrequencyMapAndAssert(input, expectedOutput);
     }
 
     @Test
     void shouldAdd0ForHoles(){
         List<Integer> input = List.of(4, 3, 4, 6);
-        Map<Integer, Integer> expectedMap = Map.ofEntries(entry(3, 1),
+        Map<Integer, Integer> expectedOutput = Map.ofEntries(entry(3, 1),
                 entry(4, 2),
                 entry(5, 0),
                 entry(6, 1));
 
-        Map<Integer, Integer> outputMap = new FrequencyCalculator(input).getFrequencyMap();
+        getFrequencyMapAndAssert(input, expectedOutput);
+    }
 
-        assert(outputMap).equals(expectedMap);
+    private void getFrequencyMapAndAssert(List<Integer> input, Map<Integer, Integer> expectedOutput){
+        Map<Integer, Integer> outputMap = frequencyCalculator.getFrequencyMap(input);
+
+        assert(outputMap).equals(expectedOutput);
     }
 }

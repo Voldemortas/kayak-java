@@ -16,7 +16,8 @@ public class FrequencyCalculator {
         if(numbers.isEmpty())
             return Map.of();
 
-        return getRange(numbers).collect(Collectors.toMap(Function.identity(), value -> this.countOccurrences(value, numbers)));
+        return getRange(numbers)
+                .collect(Collectors.toMap(Function.identity(), value -> this.countOccurrences(value, numbers)));
     }
 
     private int getMinValue(List<Integer> numbers){

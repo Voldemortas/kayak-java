@@ -17,7 +17,7 @@ public class ConsoleReader {
 
     public Map<Integer, Integer> readConsole() throws Exception {
         try {
-            System.out.println("Give me the list, list example: 9, 7, 7, 11, 11");
+            System.out.println("Give me a list, list example: 9, 7, 7, 11, 11");
             String input = reader.readLine();
             List<Integer> integers = convertStringToIntegerList(input);
             return frequencyCalculator.getFrequencyMap(integers);
